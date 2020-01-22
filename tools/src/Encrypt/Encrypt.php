@@ -1,12 +1,29 @@
 <?php
-namespace Weigot;
+namespace WeiGot\Tools\Encrypt;
+
 class Encrypt
 {
+
+    private static $instance;
+
+    private function __construct()
+    {
+
+    }
+
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
 
     public $key = "ab123ced23qefgHIJqweKlmnOPQ44rst";
 
     public function encrypt($string, $operation, $key = '')
     {
+        empty($key) && $key = $this->key;
         $src = array("/", "+", "=");
         $dist = array("_a", "_b", "_c");
         if ($operation == 'D') {
