@@ -1,0 +1,14 @@
+{
+  "name": "weigot",
+  "authors": [
+    {
+      "name": "caowei",
+      "email": "caowei_e@sina.cn"
+    }
+  ],
+  "description": "常用工具方法",
+  "require": {
+    "php": ">=5.6",
+    "another-vendor/package": "1.*"
+  }
+}
