@@ -9,6 +9,6 @@
   "description": "常用工具方法",
   "require": {
     "php": ">=5.6",
-    "another-vendor/package": "1.*"
+    "another-vendor/package": "1.1"
   }
 }
