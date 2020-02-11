@@ -6,7 +6,7 @@ use WeiGot\Tools\Encrypt\Encrypt;
 class Tools
 {
     /**
-     * 格式话树形结构，同时保证数据中含有id和parent_id
+     * 格式化树形结构，同时保证数据中含有id和parent_id
      * @param $list
      * @return array
      */
@@ -35,5 +35,28 @@ class Tools
     {
         $encrypt = Encrypt::getInstance();
         return $encrypt->encrypt($string, $operation, $key);
+    }
+
+    /**
+     * @param array $array
+     * @param bool|false $field
+     * @param bool|false $index 是否保留原来的索引
+     * @return array
+     */
+    public static function _usort(array $array, $field = false, $index = false)
+    {
+        function build_sorter($key)
+        {
+            return function ($a, $b) use ($key) {
+                if ($key && isset($a[$key])) {
+                    return strnatcmp($a[$key], $b[$key]);
+                } else {
+                    return strnatcmp($a, $b);
+                }
+            };
+        }
+
+        $index ? uasort($array, build_sorter($field)) : usort($array, build_sorter($field));
+        return $array;
     }
 }
