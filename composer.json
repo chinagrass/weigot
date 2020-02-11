@@ -9,8 +9,7 @@
   "description": "常用工具方法",
   "version":"1.0",
   "require": {
-    "php": ">=5.6",
-    "another-vendor/package": "1.0"
+    "php": ">=5.6"
   },
   "license": "MIT",
   "minimum-stability": "stable"
