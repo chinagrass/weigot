@@ -7,7 +7,7 @@
     }
   ],
   "description": "常用工具方法",
-  "version":"1.0",
+  "version":"1.0.1",
   "require": {
     "php": ">=5.6"
   },
