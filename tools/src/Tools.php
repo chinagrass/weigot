@@ -1,7 +1,7 @@
 <?php
-namespace Wgot\Tools;
+namespace Wgt\Tools;
 
-use Wgot\Tools\Encrypt\Encrypt;
+use Wgt\Tools\Encrypt\Encrypt;
 
 class Tools
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Wgot\Tools\Encrypt;
+namespace Wgt\Tools\Encrypt;
 
 class Encrypt
 {
