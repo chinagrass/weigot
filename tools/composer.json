@@ -1,5 +1,5 @@
 {
-  "name": "wgt/tools",
+  "name": "weigot/tools",
   "type": "library",
   "description": "常用工具方法",
   "keywords": [
@@ -8,7 +8,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Wgot\\Tools\\": "src/"
+      "Weigot\\Tools\\": "src/"
     }
   },
   "require": {
