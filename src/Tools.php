@@ -19,7 +19,7 @@ class Tools
             ) {
                 $list[$item['parent_id']]['children'][] = &$list[$item['id']];
             } else {
-                $formatList = &$list[$item['id']];
+                $formatList[] = &$list[$item['id']];
             }
         }
         return $formatList;
