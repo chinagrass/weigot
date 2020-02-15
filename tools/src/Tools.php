@@ -6,7 +6,7 @@ use WeiGot\Tools\Encrypt\Encrypt;
 class Tools
 {
     /**
-     * ¸ñÊ½»¯Ê÷ĞÎ½á¹¹£¬Í¬Ê±±£Ö¤Êı¾İÖĞº¬ÓĞidºÍparent_id
+     * æ ¼å¼åŒ–æ ‘å½¢ç»“æ„ï¼ŒåŒæ—¶ä¿è¯æ•°æ®ä¸­å«æœ‰idå’Œparent_id
      * @param $list
      * @return array
      */
@@ -27,7 +27,7 @@ class Tools
 
     /**
      * @param $string
-     * @param $operation {D:½âÂë£»E:¼ÓÃÜ}
+     * @param $operation {D:è§£ç ï¼›E:åŠ å¯†}
      * @param string $key
      * @return mixed|string
      */
@@ -40,7 +40,7 @@ class Tools
     /**
      * @param array $array
      * @param bool|false $field
-     * @param bool|false $index ÊÇ·ñ±£ÁôÔ­À´µÄË÷Òı
+     * @param bool|false $index æ˜¯å¦ä¿ç•™åŸæ¥çš„ç´¢å¼•
      * @return array
      */
     public static function _usort(array $array, $field = false, $index = false)
