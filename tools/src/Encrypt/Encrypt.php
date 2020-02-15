@@ -1,5 +1,5 @@
 <?php
-namespace WeiGot\Tools\Encrypt;
+namespace Wgot\Tools\Encrypt;
 
 class Encrypt
 {

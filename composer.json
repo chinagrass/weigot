@@ -1,5 +1,5 @@
 {
-  "name": "wei-got/tools",
+  "name": "wgot/tools",
   "authors": [
     {
       "name": "caowei",
@@ -7,7 +7,7 @@
     }
   ],
   "description": "常用工具方法",
-  "version": "v1.0.1",
+  "version": "v1.0",
   "require": {
     "php": ">=5.6.0"
   },
