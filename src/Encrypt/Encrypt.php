@@ -65,4 +65,26 @@ class Encrypt
             return $rdate;
         }
     }
+
+    /**
+     * 加密
+     * @param string $str 要加密的数据
+     * @return bool|string   加密后的数据
+     */
+    public function aesEncrypt($str)
+    {
+        $data = openssl_encrypt($str, 'AES-256-ECB', $this->key);
+        return $data;
+    }
+
+    /**
+     * 解密
+     * @param $str
+     * @return string
+     */
+    public function aesDecrypt($str)
+    {
+        $data = openssl_decrypt($str, 'AES-256-ECB', $this->key);
+        return $data;
+    }
 }
