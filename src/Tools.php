@@ -1,4 +1,5 @@
 <?php
+
 namespace Weigot\Tools;
 
 use Weigot\Tools\Encrypt\Encrypt;
@@ -10,16 +11,16 @@ class Tools
      * @param $list
      * @return array
      */
-    public static function TreeList($list)
+    public static function TreeList($list, $pidKey = "parent_id", $idKey = "id", $childKey = "children")
     {
         $formatList = [];
         foreach ($list as $id => $item) {
-            if (isset($item["parent_id"]) &&
-                isset($list[$item['parent_id']])
+            if (isset($item[$pidKey]) &&
+                isset($list[$item[$pidKey]])
             ) {
-                $list[$item['parent_id']]['children'][] = &$list[$item['id']];
+                $list[$item[$pidKey]][$childKey][] = &$list[$item[$idKey]];
             } else {
-                $formatList[] = &$list[$item['id']];
+                $formatList[] = &$list[$item[$idKey]];
             }
         }
         return $formatList;
