@@ -7,8 +7,11 @@ use Weigot\Tools\Encrypt\Encrypt;
 class Tools
 {
     /**
-     * 格式化树形结构，同时保证数据中含有id和parent_id
+     * 格式化树形结构
      * @param $list
+     * @param string $pidKey
+     * @param string $idKey
+     * @param string $childKey
      * @return array
      */
     public static function TreeList($list, $pidKey = "parent_id", $idKey = "id", $childKey = "children")

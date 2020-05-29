@@ -49,4 +49,18 @@ class Date
         }
         return $result;
     }
+
+    /**
+     * 获得某月的所有日期
+     * @param string $time
+     * @return array
+     */
+    public static function getMonthDays($time = "")
+    {
+        empty($time) && $time = time();
+        $start_day = date('Ym01', $time);
+        $end_day = date('Ymd', strtotime("{$start_day} + 1 month -1 day"));
+        $date = range($start_day, $end_day, 1);
+        return $date;
+    }
 }
