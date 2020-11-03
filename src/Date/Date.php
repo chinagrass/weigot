@@ -18,14 +18,15 @@ class Date
     }
 
     /**
-     * 上一月日期
+     * 上一段日期
      * @param $time
      * @param string $format
+     * @param int $last
      * @return false|string
      */
-    public static function getPreDate($time, $format = "Y-m-d")
+    public static function getPreDate($time, $format = "Y-m-d", $last = -1)
     {
-        return date($format, strtotime("-1 months", $time));// 上一月日期
+        return date($format, strtotime("{$last} months", $time));// 上一月日期
     }
 
     /**
