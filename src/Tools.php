@@ -76,4 +76,21 @@ class Tools
         $uuid = substr($charid, 0, 8) . $hyphen . substr($charid, 8, 4) . $hyphen . substr($charid, 12, 4) . $hyphen . substr($charid, 16, 4) . $hyphen . substr($charid, 20, 12);
         return $uuid;
     }
+
+    /**
+     * 获得301或者302跳转的真实地址
+     * @param $url
+     * @return mixed
+     */
+    public static function GetRealUrl($url)
+    {
+        $header = get_headers($url, 1);
+        if (strpos($header[0], '301') || strpos($header[0], '302')) {
+            $url = $header['location'];
+            if (is_array($header['location'])) {
+                $url = $header['location'][count($header['location']) - 1];
+            }
+        }
+        return $url;
+    }
 }
