@@ -24,7 +24,7 @@ class Excel implements IExcel
     {
         $reader = IOFactory::createReader($ext);
         $reader->setReadDataOnly(TRUE);
-        if ($ex == ExcelTypeEnum::CSV) {
+        if ($ext == ExcelTypeEnum::CSV) {
             $reader->setInputEncoding('GBK');
         }
         $spreadsheet = $reader->load($file);
