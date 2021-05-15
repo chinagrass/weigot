@@ -10,7 +10,7 @@ namespace Weigot\Tools\Office;
 
 interface IExcel
 {
-    public static function read($file, $ext = 'Xlsx', $offset = 1);
+    public static function read($file, $ext = ExcelTypeEnum::XLSX, $offset = 1);
 
-    public static function write();
+    public static function write($data, $fields = [], $fileName = "文件");
 }
