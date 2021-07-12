@@ -43,11 +43,10 @@ class Tools
 
     /**
      * @param array $array
-     * @param bool|false $field
-     * @param bool|false $index 是否保留原来的索引
+     * @param bool $field
      * @return array
      */
-    public static function _usort(array $array, $field = false, $index = false)
+    public static function _usort(array $array, $field = false)
     {
         function build_sorter($key)
         {
@@ -60,7 +59,21 @@ class Tools
             };
         }
 
-        $index ? uasort($array, build_sorter($field)) : usort($array, build_sorter($field));
+        usort($array, build_sorter($field));
+        return $array;
+    }
+
+    public static function _uasort(array $array, $field = false)
+    {
+        uasort($array, function () use($field) {
+            return function ($a, $b) use ($field) {
+                if ($field && isset($a[$field])) {
+                    return strnatcmp($a[$field], $b[$field]);
+                } else {
+                    return strnatcmp($a, $b);
+                }
+            };
+        });
         return $array;
     }
 
