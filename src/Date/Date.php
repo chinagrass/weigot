@@ -14,7 +14,9 @@ class Date
      */
     public static function getMonthLastDate($time, $format = "Y-m-d")
     {
-        return date($format, strtotime(' +1 month -1 day', $time));// 本月最后一天
+        $firstDay = date('Y-m-01', $time);
+        $lastDay = date($format, strtotime("$firstDay +1 month -1 day"));
+        return $lastDay;
     }
 
     /**
@@ -63,5 +65,61 @@ class Date
         $end_day = date('Ymd', strtotime("{$start_day} + 1 month -1 day"));
         $date = range($start_day, $end_day, 1);
         return $date;
+    }
+
+    /**
+     * 获取两个时间之间的日期
+     * @param $time
+     * @param int $step
+     * @return array
+     */
+    public static function getTimeSlotDays($time, $step = 1)
+    {
+        $endTime = $time - 3600 * 24 * $step;
+        $date = self::getDaysInTimePeriod($time, $endTime);
+        return $date;
+    }
+
+    /**
+     * @param $startTime
+     * @param $endTime
+     * @return array
+     */
+    public static function getDaysInTimePeriod($startTime, $endTime)
+    {
+        $date = range($startTime, $endTime, 3600 * 24);
+        sort($date);
+        foreach ($date as &$value) {
+            $value = date("Ymd", $value);
+        }
+        return $date;
+    }
+
+    /**
+     * 获取本周第一天
+     * @param int $time
+     * @return false|string
+     */
+    public static function getWeekStart($time = 0)
+    {
+        empty($time) && $time = time();
+        $defaultDate = date("Y-m-d", $time);
+        $first = 1;
+//获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+        $w = date('w', strtotime($defaultDate));
+        $weekStart = date('Y-m-d', strtotime("$defaultDate -" . ($w ? $w - $first : 6) . ' days'));
+        return $weekStart;
+    }
+
+    /**
+     * 获取本周最后一天
+     * @param int $time
+     * @return false|string
+     */
+    public static function getWeekEnd($time = 0)
+    {
+        $weekStart = self::getWeekStart($time);
+        $weekEnd = date('Y-m-d', strtotime("$weekStart +6 days"));
+        return $weekEnd;
     }
 }
