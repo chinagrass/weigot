@@ -13,7 +13,7 @@
   },
   "require": {
     "php": ">=5.6.0",
-    "weigot/tools": "^1.0.13"
+    "weigot/tools": "^1.1.0"
   },
   "authors": [
     {
@@ -21,7 +21,7 @@
       "email": "caowei_e@sina.cn"
     }
   ],
-  "version": "v1.0.13",
+  "version": "v1.1.0",
   "license": "MIT",
   "minimum-stability": "stable"
 }
