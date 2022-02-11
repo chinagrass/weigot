@@ -5,11 +5,26 @@ namespace Weigot\Tools\Office;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\BaseWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Html;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 
 class Excel implements IExcel
 {
-    public static function write($data, $fields = [], $fileName = "文件")
+    /**
+     * 生成文件
+     * @param \Generator $data
+     * @param array $fields
+     * @param string $fileName
+     * @param string $ext
+     * @param int $output
+     * @throws OfficeException
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
+    public static function write(\Generator $data, $fields = [], $fileName = "文件", $ext = ExcelTypeEnum::XLSX, $output = 1)
     {
         set_time_limit(0);
         $spreadsheet = new Spreadsheet(); // 创建新表格
@@ -24,6 +39,9 @@ class Excel implements IExcel
         }
         foreach ($data as $k => $content) {
             $j = 1;
+            if (empty($content)) {
+                continue;
+            }
             foreach ($fields as $key => $field) {
                 $sheet->getCellByColumnAndRow($j, $k + 2)
                     ->setValueExplicit($content[$key], DataType::TYPE_STRING);
@@ -35,13 +53,37 @@ class Excel implements IExcel
                 $j++;
             }
         }
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');//浏览器输出07Excel文件
-        header('Content-Disposition: attachment;filename="' . $fileName . '.xlsx"');//浏览器输出浏览器名称
-        header('Cache-Control: max-age=0'); //禁止缓存
-        header('Access-Control-Allow-Methods:GET, POST, PUT, DELETE, HEAD, OPTIONS');
-        header('Access-Control-Allow-Origin:*');
-        $writer = new Xlsx($spreadsheet);
-        $writer->save('php://output'); // 直接下载excel
+        /** @var BaseWriter $writer */
+        switch (strtolower($ext)) {
+            default:
+            case strtolower(ExcelTypeEnum::XLSX):
+                $writer = new Xlsx($spreadsheet);
+                break;
+            case strtolower(ExcelTypeEnum::CSV):
+                $writer = new Csv($spreadsheet);
+                break;
+            case strtolower(ExcelTypeEnum::XLS):
+                $writer = new Xls($spreadsheet);
+                break;
+            case strtolower(ExcelTypeEnum::HTML):
+                $writer = new Html($spreadsheet);
+                break;
+            case strtolower(ExcelTypeEnum::ODS):
+                $writer = new Ods($spreadsheet);
+                break;
+        }
+        if ($output) {
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');//浏览器输出07Excel文件
+            header('Content-Disposition: attachment;filename="' . $fileName . '.xlsx"');//浏览器输出浏览器名称
+            header('Cache-Control: max-age=0'); //禁止缓存
+            header('Access-Control-Allow-Methods:GET, POST, PUT, DELETE, HEAD, OPTIONS');
+            header('Access-Control-Allow-Origin:*');
+            $writer->save('php://output'); // 直接下载excel
+        } else {
+            $_fileName = iconv("utf-8", "gb2312", $fileName);//转码
+            $_savePath = $_fileName . "." . strtolower($ext);
+            $writer->save($_savePath);
+        }
         exit();
     }
 
