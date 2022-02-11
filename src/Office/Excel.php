@@ -72,18 +72,18 @@ class Excel implements IExcel
                 $writer = new Ods($spreadsheet);
                 break;
         }
-        if ($output) {
+        if ($output) { // 浏览器下载
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');//浏览器输出07Excel文件
             header('Content-Disposition: attachment;filename="' . $fileName . '.xlsx"');//浏览器输出浏览器名称
             header('Cache-Control: max-age=0'); //禁止缓存
             header('Access-Control-Allow-Methods:GET, POST, PUT, DELETE, HEAD, OPTIONS');
             header('Access-Control-Allow-Origin:*');
-            $writer->save('php://output'); // 直接下载excel
-        } else {
+            $_savePath = "php://output";
+        } else { // 下载到本地服务器
             $_fileName = iconv("utf-8", "gb2312", $fileName);//转码
             $_savePath = $_fileName . "." . strtolower($ext);
-            $writer->save($_savePath);
         }
+        $writer->save($_savePath);
         exit();
     }
 
