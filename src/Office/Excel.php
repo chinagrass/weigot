@@ -89,8 +89,8 @@ class Excel implements IExcel
 
     /**
      * 读取数据
-     * @param $file文件地址
-     * @param string $ext文件后缀
+     * @param $file
+     * @param string $ext
      * @param int $offset
      * @return \Generator
      * @throws OfficeException
