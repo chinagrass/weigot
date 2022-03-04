@@ -16,7 +16,7 @@ class Excel implements IExcel
 {
     /**
      * 生成文件
-     * @param \Generator $data
+     * @param $data
      * @param array $fields
      * @param string $fileName
      * @param string $ext
@@ -24,7 +24,7 @@ class Excel implements IExcel
      * @throws OfficeException
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public static function write(\Generator $data, $fields = [], $fileName = "文件", $ext = ExcelTypeEnum::XLSX, $output = 1)
+    public static function write($data, $fields = [], $fileName = "文件", $ext = ExcelTypeEnum::XLSX, $output = 1)
     {
         set_time_limit(0);
         $spreadsheet = new Spreadsheet(); // 创建新表格

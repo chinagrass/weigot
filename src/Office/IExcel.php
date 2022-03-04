@@ -12,5 +12,5 @@ interface IExcel
 {
     public static function read($file, $ext = ExcelTypeEnum::XLSX, $offset = 1);
 
-    public static function write(\Generator $data, $fields = [], $fileName = "文件", $ext = ExcelTypeEnum::XLSX);
+    public static function write($data, $fields = [], $fileName = "文件", $ext = ExcelTypeEnum::XLSX);
 }
