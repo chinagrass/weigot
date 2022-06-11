@@ -65,7 +65,7 @@ class Tools
 
     public static function _uasort(array $array, $field = false)
     {
-        uasort($array, function () use($field) {
+        uasort($array, function () use ($field) {
             return function ($a, $b) use ($field) {
                 if ($field && isset($a[$field])) {
                     return strnatcmp($a[$field], $b[$field]);
@@ -105,5 +105,26 @@ class Tools
             }
         }
         return $url;
+    }
+
+    /**
+     * 生成一个数字串
+     * @param int $length
+     * @return string
+     */
+    public static function GenerateNumber($length = 8)
+    {
+        $date = trim(date('Ymdhis ', time()));
+        $connt = 0;
+        $temp = array();
+        while ($connt < $length) {
+            $temp[] = mt_rand(0, 9);
+            $data = array_flip(array_flip($temp));
+            $connt = count($data);
+        }
+        shuffle($data);
+        $str = implode(",", $data);
+        $number = str_replace(',', '', $str);
+        return $date . $number;
     }
 }
