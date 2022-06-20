@@ -1,6 +1,6 @@
 <?php
 
-namespace Weigot\Tools\Office;
+namespace Weigot\Tools\Exception;
 
 class OfficeException extends \Exception
 {
