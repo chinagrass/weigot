@@ -32,7 +32,7 @@ class Date
      */
     public static function getPreDate($time, $format = "Y-m-d", $last = -1, $unit = DateUnitEnum::MONTH)
     {
-        if (DateUnitEnum::validate($unit)) {
+        if (!DateUnitEnum::validate($unit)) {
             throw new ValidateException("unit error");
         }
         return date($format, strtotime("{$last} {$unit}", $time));// 上一月日期
@@ -49,7 +49,7 @@ class Date
      */
     public static function getDatePeriod($sDate, $eDate, $format = "Y-m", $unit = DateUnitEnum::MONTH)
     {
-        if (DateUnitEnum::validate($unit)) {
+        if (!DateUnitEnum::validate($unit)) {
             throw new ValidateException("unit error");
         }
         $result = [];
