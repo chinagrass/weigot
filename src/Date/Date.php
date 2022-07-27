@@ -4,6 +4,9 @@
 namespace Weigot\Tools\Date;
 
 
+use Weigot\Tools\Enum\DateUnitEnum;
+use Weigot\Tools\Exception\ValidateException;
+
 class Date
 {
     /**
@@ -15,8 +18,7 @@ class Date
     public static function getMonthLastDate($time, $format = "Y-m-d")
     {
         $firstDay = date('Y-m-01', $time);
-        $lastDay = date($format, strtotime("$firstDay +1 month -1 day"));
-        return $lastDay;
+        return date($format, strtotime("$firstDay +1 month -1 day"));
     }
 
     /**
@@ -24,28 +26,37 @@ class Date
      * @param $time
      * @param string $format
      * @param int $last
+     * @param string $unit
      * @return false|string
+     * @throws ValidateException
      */
-    public static function getPreDate($time, $format = "Y-m-d", $last = -1)
+    public static function getPreDate($time, $format = "Y-m-d", $last = -1, $unit = DateUnitEnum::MONTH)
     {
-        return date($format, strtotime("{$last} months", $time));// 上一月日期
+        if (DateUnitEnum::validate($unit)) {
+            throw new ValidateException("unit error");
+        }
+        return date($format, strtotime("{$last} {$unit}", $time));// 上一月日期
     }
 
     /**
-     * 获取两个时间之间的月份
+     * 获取两个时间之间的日期
      * @param $sDate
      * @param $eDate
      * @param string $format
+     * @param string $unit
      * @return array
-     * @throws \Exception
+     * @throws ValidateException|\Exception
      */
-    public static function getDatePeriod($sDate, $eDate, $format = "Y-m")
+    public static function getDatePeriod($sDate, $eDate, $format = "Y-m", $unit = DateUnitEnum::MONTH)
     {
+        if (DateUnitEnum::validate($unit)) {
+            throw new ValidateException("unit error");
+        }
         $result = [];
         $start = new \DateTime($sDate);
         $end = new \DateTime($eDate);
-// 时间间距 这里设置的是一个月
-        $interval = \DateInterval::createFromDateString('1 month');
+        // 时间间距
+        $interval = \DateInterval::createFromDateString("1 {$unit}");
         $period = new \DatePeriod($start, $interval, $end);
         foreach ($period as $dt) {
             $result[] = $dt->format($format);
@@ -63,8 +74,7 @@ class Date
         empty($time) && $time = time();
         $start_day = date('Ym01', $time);
         $end_day = date('Ymd', strtotime("{$start_day} + 1 month -1 day"));
-        $date = range($start_day, $end_day, 1);
-        return $date;
+        return range($start_day, $end_day, 1);
     }
 
     /**
@@ -76,8 +86,7 @@ class Date
     public static function getTimeSlotDays($time, $step = 1)
     {
         $endTime = $time - 3600 * 24 * $step;
-        $date = self::getDaysInTimePeriod($time, $endTime);
-        return $date;
+        return self::getDaysInTimePeriod($time, $endTime);
     }
 
     /**
@@ -105,7 +114,7 @@ class Date
         empty($time) && $time = time();
         $defaultDate = date("Y-m-d", $time);
         $first = 1;
-//获取当前周的第几天 周日是 0 周一到周六是 1 - 6
+        //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
         $w = date('w', strtotime($defaultDate));
         $weekStart = date('Y-m-d', strtotime("$defaultDate -" . ($w ? $w - $first : 6) . ' days'));
         return $weekStart;
@@ -119,7 +128,6 @@ class Date
     public static function getWeekEnd($time = 0)
     {
         $weekStart = self::getWeekStart($time);
-        $weekEnd = date('Y-m-d', strtotime("$weekStart +6 days"));
-        return $weekEnd;
+        return date('Y-m-d', strtotime("$weekStart +6 days"));
     }
 }
