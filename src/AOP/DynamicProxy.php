@@ -48,7 +48,7 @@ class DynamicProxy
             foreach ($interceptorObjs as $interceptorObj) {
                 $interceptorObj->before($arguments);
             }
-            $result = $object->$name($arguments);
+            $result = call_user_func_array([$object, $name], $arguments);
             $interceptorObjs = array_reverse($interceptorObjs);
             foreach ($interceptorObjs as $interceptorObj) {
                 $interceptorObj->after($result);
