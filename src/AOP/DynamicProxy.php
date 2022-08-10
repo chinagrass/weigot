@@ -6,7 +6,6 @@ use Weigot\Tools\Exception\AOPException;
 
 class DynamicProxy
 {
-    protected $aop;
     protected $object;
 
     public function __construct(object $object)
@@ -17,7 +16,7 @@ class DynamicProxy
     /**
      * @return object
      */
-    public function getObject(): object
+    public function getObject()
     {
         return $this->object;
     }
@@ -46,7 +45,7 @@ class DynamicProxy
                 $interceptorObjs[] = $interceptorObj;
             }
             foreach ($interceptorObjs as $interceptorObj) {
-                $interceptorObj->before($arguments);
+                call_user_func_array([$interceptorObj, 'before'], $arguments);
             }
             $result = call_user_func_array([$object, $name], $arguments);
             $interceptorObjs = array_reverse($interceptorObjs);
@@ -54,7 +53,7 @@ class DynamicProxy
                 $interceptorObj->after($result);
             }
         } else {
-            $result = $object->$name($arguments);
+            $result = call_user_func_array([$object, $name], $arguments);
         }
         return $result;
     }

@@ -31,4 +31,12 @@ composer require weigot/tools
 // 获取树形结构
 
 Tools::TreeList($list);
+
+// 使用AOP
+
+1、切入的类需要继承Interceptor
+2、被切入的对象，需要设置属性$interceptors，具体格式为
+public $interceptors = [
+    LogService::class
+];
 ```
