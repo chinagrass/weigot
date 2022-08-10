@@ -4,7 +4,9 @@
   "description": "常用工具方法",
   "keywords": [
     "weigot",
-    "tools"
+    "tools",
+    "office",
+    "aop"
   ],
   "autoload": {
     "psr-4": {
@@ -24,7 +26,7 @@
       "email": "caowei_e@sina.cn"
     }
   ],
-  "version": "v1.1.4",
+  "version": "v1.1.5",
   "license": "MIT",
   "minimum-stability": "stable"
 }
