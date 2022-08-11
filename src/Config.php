@@ -18,7 +18,7 @@ class Config implements \ArrayAccess
     {
         if (empty($this->configs[$key]))
         {
-            $file_path = $this->path.'/'.$key.'.php';
+            $file_path = __DIR__ . "/../../../../" . $this->path . '/' . $key . '.php';
             $config = require $file_path;
             $this->configs[$key] = $config;
         }
