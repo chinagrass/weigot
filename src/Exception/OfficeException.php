@@ -2,7 +2,7 @@
 
 namespace Weigot\Tools\Exception;
 
-class OfficeException extends \Exception
+class OfficeException extends WGException
 {
 
 }

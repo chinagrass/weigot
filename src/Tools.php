@@ -127,4 +127,14 @@ class Tools
         $number = str_replace(',', '', $str);
         return $date . $number;
     }
+
+    /**
+     * 获取config
+     * @param $path
+     * @return Config
+     */
+    public static function Config($path)
+    {
+        return new Config($path);
+    }
 }

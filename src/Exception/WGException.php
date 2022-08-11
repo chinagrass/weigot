@@ -4,7 +4,7 @@
 namespace Weigot\Tools\Exception;
 
 
-class ValidateException extends WGException
+class WGException extends \Exception
 {
 
 }
