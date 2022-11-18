@@ -1,12 +1,13 @@
-# weigot
+# WeiGot
 
 #### 介绍
-项目开发常用的一些通用的公共方法的整合
+项目开发中常用的一些通用类的公共方法的整合
 
 #### 软件架构
 ```
 weigot
 ├─src  # 应用
+│  ├─AOP # AOP使用
 │  ├─Date  # 时间工具
 │  │  ├─ Date.php
 │  │  └─ Time.php
@@ -39,4 +40,8 @@ Tools::TreeList($list);
 public $interceptors = [
     LogService::class
 ];
+
+// office使用
+
+参考tests中的单元测试实例
 ```
