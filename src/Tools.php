@@ -108,6 +108,25 @@ class Tools
     }
 
     /**
+     * 自定义字符串转大写，主要是为了兼容中文
+     * @param $str
+     * @return string
+     */
+    public static function strToUpper($str)
+    {
+        $b = str_split($str, 1);
+        $r = "";
+        foreach ($b as $v) {
+            $v = ord($v);
+            if ($v >= 97 && $v <= 122) {
+                $v -= 32;
+            }
+            $r .= chr($v);
+        }
+        return $r;
+    }
+
+    /**
      * 生成一个数字串
      * @param int $length
      * @return string
