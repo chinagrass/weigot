@@ -1,7 +1,7 @@
 # WeiGot
 
 #### 介绍
-项目开发中常用的一些通用类的公共方法的整合
+项目开发中经常会用到一些方法，所以在这里做了一个整合。同时集成了一些便捷化操作的策略。
 
 #### 软件架构
 ```
@@ -19,7 +19,7 @@ weigot
 │  │    └─ ExcelTypeEnum.php  # excel分类枚举
 │  └─Tools.php  # 工具类
 ├─README.md  # 文档说明
-└─composer.json  # 迁移文件记录
+└─composer.json
 ```
 
 #### 安装教程
