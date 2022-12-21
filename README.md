@@ -28,20 +28,37 @@ composer require weigot/tools
 ```
 
 #### 使用说明
+
+##### 1. 获取树形结构
 ```
-// 获取树形结构
-
 Tools::TreeList($list);
-
-// 使用AOP
-
-1、切入的类需要继承Interceptor
-2、被切入的对象，需要设置属性$interceptors，具体格式为
+```
+##### 2. 使用AOP
+###### 2.1 切入类需要继承Interceptor，例如
+```
+class LogService extends Interceptor {
+    public function before(...$data){
+        // todo someting ...
+    }
+    public function after(...$data){
+        // todo someting ...
+    }
+}
+```
+###### 2.2 被切入的对象，需要设置属性$interceptors，具体格式为
+```
 public $interceptors = [
-    LogService::class
+    LogService::class // 切入类
 ];
-
-// office使用
-
+```
+###### 或者，
+```
+use InterceptorTrait;
+protected $interceptors = [
+    LogService::class // 切入类
+];
+```
+##### 3. office使用
+```
 参考tests中的单元测试实例
 ```
