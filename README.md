@@ -48,16 +48,29 @@ class LogService extends Interceptor {
 ###### 2.2 被切入的对象，需要设置属性$interceptors，具体格式为
 ```
 public $interceptors = [
-    LogService::class // 切入类
+    InterceptorService::class // 切入类
 ];
 ```
 ###### 或者，
 ```
 use InterceptorTrait;
 protected $interceptors = [
-    LogService::class // 切入类
+    InterceptorService::class // 切入类
 ];
 ```
+##### 或者，
+```$xslt
+# 在项目的根目录下，增加config目录，并在目录下编写aop.php文件，具体格式为
+<?php
+return [
+    TestService::class=>[
+        'method'=>[
+            InterceptorService::class,
+        ],
+    ],
+];
+```
+
 ##### 3. office使用
 ```
 参考tests中的单元测试实例
