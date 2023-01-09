@@ -156,4 +156,19 @@ class Tools
     {
         return new Config($path);
     }
+
+    /**
+     * 统计二进制中1出现的次数
+     * @param $num
+     * @return int
+     */
+    public static function countOneBits($num)
+    {
+        $count = 0;
+        while ($num > 0) {
+            $num = $num & ($num - 1);
+            $count++;
+        }
+        return $count;
+    }
 }

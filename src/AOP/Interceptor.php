@@ -2,16 +2,10 @@
 
 namespace Weigot\Tools\AOP;
 
-abstract class Interceptor implements IInterceptor
+abstract class Interceptor
 {
-    public function before(...$data)
-    {
-        // TODO: Implement before() method.
-    }
+    public abstract function before(...$data);
 
-    public function after(...$data)
-    {
-        // TODO: Implement after() method.
-    }
+    public abstract function after(...$data);
 
 }
