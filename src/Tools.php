@@ -171,4 +171,22 @@ class Tools
         }
         return $count;
     }
+
+
+    public static function folderFile($path, $callback = null)
+    {
+        $dh = opendir($path);
+        while (($d = readdir($dh)) != false) {
+            if ($d == '.' || $d == '..') {
+                continue;
+            }
+            $folder = $path . "/" . $d;
+            if ($callback) {
+                call_user_func($callback, $folder);
+            }
+            if (is_dir($folder)) {
+                self::folderFile($folder, $callback);
+            }
+        }
+    }
 }
