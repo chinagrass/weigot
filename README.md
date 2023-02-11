@@ -79,25 +79,25 @@ return [
 ##### 4. Tools下的方法
 ```$xslt
 # 获取树形结构
-Tools：：TreeList($list, $pidKey, $idKey, $childKey);
+Tools::TreeList($list, $pidKey, $idKey, $childKey);
 # 加密解密
-Tools：：Encrypt($string, $operation, $key)；
+Tools::Encrypt($string, $operation, $key)；
 # 不保留原键排序
-Tools：：_usort($array, $field);
+Tools::_usort($array, $field);
 # 保留原键排序
-Tools：：_uasort($array, $field);
+Tools::_uasort($array, $field);
 # 生成guid
-Tools：：CreateGuid();
+Tools::CreateGuid();
 # 获得301或者302跳转的真实地址
-Tools：：GetRealUrl($url);
+Tools::GetRealUrl($url);
 # 自定义字符串转大写
-Tools：：strToUpper($str);
+Tools::strToUpper($str);
 # 生成一个数字串
-Tools：：GenerateNumber($length);
+Tools::GenerateNumber($length);
 # 获取config
-Tools：：Config($path);
+Tools::Config($path);
 # 统计二进制中1出现的次数
-Tools：：countOneBits($num);
+Tools::countOneBits($num);
 # 文件递归查询
-Tools：：folderFile($path, $callback);
+Tools::folderFile($path, $callback);
 ```
