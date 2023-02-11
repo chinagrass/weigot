@@ -172,7 +172,11 @@ class Tools
         return $count;
     }
 
-
+    /**
+     * 文件递归查询
+     * @param $path
+     * @param null $callback
+     */
     public static function folderFile($path, $callback = null)
     {
         $dh = opendir($path);
