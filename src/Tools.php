@@ -30,6 +30,7 @@ class Tools
     }
 
     /**
+     * 加密解密
      * @param $string
      * @param $operation {D:解码；E:加密}
      * @param string $key
@@ -42,6 +43,7 @@ class Tools
     }
 
     /**
+     * 不保留原键排序
      * @param array $array
      * @param bool $field
      * @return array
@@ -63,6 +65,12 @@ class Tools
         return $array;
     }
 
+    /**
+     * 保留原键排序
+     * @param array $array
+     * @param bool $field
+     * @return array
+     */
     public static function _uasort(array $array, $field = false)
     {
         uasort($array, function () use ($field) {
@@ -170,5 +178,27 @@ class Tools
             $count++;
         }
         return $count;
+    }
+
+    /**
+     * 文件递归查询
+     * @param $path
+     * @param null $callback
+     */
+    public static function folderFile($path, $callback = null)
+    {
+        $dh = opendir($path);
+        while (($d = readdir($dh)) != false) {
+            if ($d == '.' || $d == '..') {
+                continue;
+            }
+            $folder = $path . "/" . $d;
+            if ($callback) {
+                call_user_func($callback, $folder);
+            }
+            if (is_dir($folder)) {
+                self::folderFile($folder, $callback);
+            }
+        }
     }
 }
