@@ -94,17 +94,21 @@ class DynamicProxy
      */
     private function getInterceptors($object, $method)
     {
-        switch (true) {
-            case is_callable([$object, 'getInterceptors']):
-                $interceptors = $object->getInterceptors();
-                break;
-            case !empty(get_object_vars($object)["interceptors"]):
-                $interceptors = $object->interceptors;
-                break;
-            default:
-                $class = get_class($object);
-                $interceptors = isset(Tools::Config("config")["aop"][$class][$method]) ? Tools::Config("config")["aop"][$class][$method] : [];
-                break;
+        try {
+            switch (true) {
+                case is_callable([$object, 'getInterceptors']):
+                    $interceptors = $object->getInterceptors();
+                    break;
+                case !empty(get_object_vars($object)["interceptors"]):
+                    $interceptors = $object->interceptors;
+                    break;
+                default:
+                    $class = get_class($object);
+                    $interceptors = Tools::Config("config")["aop"][$class][$method];
+                    break;
+            }
+        } catch (\Throwable $e) {
+            $interceptors = [];
         }
         return $interceptors;
     }

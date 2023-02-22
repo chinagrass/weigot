@@ -6,6 +6,6 @@ abstract class Interceptor
 {
     public abstract function before(...$data);
 
-    public abstract function after(...$data);
+    public abstract function after(...$result);
 
 }
