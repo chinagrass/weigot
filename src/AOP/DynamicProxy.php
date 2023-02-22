@@ -104,7 +104,8 @@ class DynamicProxy
                     break;
                 default:
                     $class = get_class($object);
-                    $interceptors = Tools::Config("config")["aop"][$class][$method];
+                    $config = Tools::Config("config")["aop"];
+                    $interceptors = !empty($config[$class][$method]) ? $config[$class][$method] : [];
                     break;
             }
         } catch (\Throwable $e) {
