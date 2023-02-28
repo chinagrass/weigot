@@ -9,10 +9,10 @@ use Weigot\Tools\AOP\DynamicProxy;
 class Factory
 {
     /**
-     * @param object $object
+     * @param Object $object
      * @return DynamicProxy
      */
-    public static function aop(object $object)
+    public static function aop(Object $object)
     {
         return new DynamicProxy($object);
     }

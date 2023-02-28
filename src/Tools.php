@@ -3,6 +3,7 @@
 namespace Weigot\Tools;
 
 use Weigot\Tools\Encrypt\Encrypt;
+use Weigot\Tools\Encrypt\Request\SignRequest;
 
 class Tools
 {
@@ -200,5 +201,16 @@ class Tools
                 self::folderFile($folder, $callback);
             }
         }
+    }
+
+    /**
+     * @param SignRequest $signRequest
+     * @return string
+     * @throws Exception\WGException
+     */
+    public static function getSign(SignRequest $signRequest)
+    {
+        $encrypt = Encrypt::getInstance();
+        return $encrypt->getSign($signRequest);
     }
 }

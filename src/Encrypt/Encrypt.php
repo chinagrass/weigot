@@ -1,5 +1,8 @@
 <?php
+
 namespace Weigot\Tools\Encrypt;
+
+use Weigot\Tools\Encrypt\Request\SignRequest;
 
 class Encrypt
 {
@@ -86,5 +89,41 @@ class Encrypt
     {
         $data = openssl_decrypt($str, 'AES-256-ECB', $this->key);
         return $data;
+    }
+
+    /**
+     * @param SignRequest $signRequest
+     * @return string
+     * @throws \Weigot\Tools\Exception\WGException
+     */
+    public function getSign(SignRequest $signRequest)
+    {
+        $signRequest->validate();
+        $params = $signRequest->getParams();
+        $params = array_unique($params);
+        if ($signRequest->getParamsSort() == 'ksort') {
+            ksort($params);
+        } else {
+            asort($params);
+        }
+        if ($signRequest->getKey()) {
+            $params["_key"] = $signRequest->getKey();
+        }
+        $hyphen = $signRequest->getHyphen();
+        if (strtolower($hyphen) == 'json') {
+            $str = json_encode($params);
+        } else {
+            $str = implode($hyphen, $params);
+        }
+        switch ($signRequest->getEncryptMethod()) {
+            default:
+            case "md5":
+                $sign = md5($str);
+                break;
+            case 'sha256':
+                $sign = hash("sha256", $str);
+                break;
+        }
+        return $sign;
     }
 }
