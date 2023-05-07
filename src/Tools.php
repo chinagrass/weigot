@@ -4,6 +4,7 @@ namespace Weigot\Tools;
 
 use Weigot\Tools\Binary\Binary;
 use Weigot\Tools\Encrypt\Encrypt;
+use Weigot\Tools\Encrypt\Request\SignRequest;
 
 class Tools
 {
@@ -137,6 +138,54 @@ class Tools
     public static function Config($path)
     {
         return new Config($path);
+    }
+
+    /**
+     * 统计二进制中1出现的次数
+     * @param $num
+     * @return int
+     */
+    public static function countOneBits($num)
+    {
+        $count = 0;
+        while ($num > 0) {
+            $num = $num & ($num - 1);
+            $count++;
+        }
+        return $count;
+    }
+
+    /**
+     * 文件递归查询
+     * @param $path
+     * @param null $callback
+     */
+    public static function folderFile($path, $callback = null)
+    {
+        $dh = opendir($path);
+        while (($d = readdir($dh)) != false) {
+            if ($d == '.' || $d == '..') {
+                continue;
+            }
+            $folder = $path . "/" . $d;
+            if ($callback) {
+                call_user_func($callback, $folder);
+            }
+            if (is_dir($folder)) {
+                self::folderFile($folder, $callback);
+            }
+        }
+    }
+
+    /**
+     * @param SignRequest $signRequest
+     * @return string
+     * @throws Exception\WGException
+     */
+    public static function getSign(SignRequest $signRequest)
+    {
+        $encrypt = Encrypt::getInstance();
+        return $encrypt->getSign($signRequest);
     }
 
     /**

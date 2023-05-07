@@ -1,4 +1,5 @@
 <?php
+
 namespace Weigot\Tools;
 
 
@@ -16,9 +17,11 @@ class Config implements \ArrayAccess
 
     public function offsetGet($key)
     {
-        if (empty($this->configs[$key]))
-        {
+        if (empty($this->configs[$key])) {
             $file_path = __DIR__ . "/../../../../" . $this->path . '/' . $key . '.php';
+            if (!is_file($file_path)) {
+                return [];
+            }
             $config = require $file_path;
             $this->configs[$key] = $config;
         }
