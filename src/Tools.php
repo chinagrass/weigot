@@ -2,6 +2,7 @@
 
 namespace Weigot\Tools;
 
+use Weigot\Tools\Binary\Binary;
 use Weigot\Tools\Encrypt\Encrypt;
 
 class Tools
@@ -136,5 +137,12 @@ class Tools
     public static function Config($path)
     {
         return new Config($path);
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function Binary(){
+        return Binary::getInstance();
     }
 }
