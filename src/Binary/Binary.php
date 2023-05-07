@@ -15,7 +15,7 @@ class Binary
     }
 
     /**
-     * @return mixed
+     * @return Binary
      */
     public static function getInstance()
     {
@@ -64,5 +64,20 @@ class Binary
             $result = $num - (1 << ($index - 1));
         }
         return $result;
+    }
+
+    /**
+     * 统计二进制中1出现的次数
+     * @param $num
+     * @return int
+     */
+    public function countOneBits($num)
+    {
+        $count = 0;
+        while ($num > 0) {
+            $num = $num & ($num - 1);
+            $count++;
+        }
+        return $count;
     }
 }

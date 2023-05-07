@@ -147,12 +147,8 @@ class Tools
      */
     public static function countOneBits($num)
     {
-        $count = 0;
-        while ($num > 0) {
-            $num = $num & ($num - 1);
-            $count++;
-        }
-        return $count;
+        $binary = self::Binary();
+        return $binary->countOneBits($num);
     }
 
     /**
@@ -178,6 +174,7 @@ class Tools
     }
 
     /**
+     * 获取签名
      * @param SignRequest $signRequest
      * @return string
      * @throws Exception\WGException
@@ -189,9 +186,11 @@ class Tools
     }
 
     /**
-     * @return mixed
+     * 二进制类
+     * @return Binary
      */
-    public static function Binary(){
+    public static function Binary()
+    {
         return Binary::getInstance();
     }
 }
