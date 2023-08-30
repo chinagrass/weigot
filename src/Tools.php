@@ -5,6 +5,7 @@ namespace Weigot\Tools;
 use Weigot\Tools\Binary\Binary;
 use Weigot\Tools\Encrypt\Encrypt;
 use Weigot\Tools\Encrypt\Request\SignRequest;
+use Weigot\Tools\Exception\WGException;
 
 class Tools
 {
@@ -81,15 +82,32 @@ class Tools
 
     /**
      * 生成guid
+     * @param string $hyphen
+     * @param array $limits
      * @return string
+     * @throws WGException
      */
-    public static function CreateGuid()
+    public static function CreateGuid($hyphen = "-", $limits = [8, 4, 4, 4, 12])
     {
+        if(array_sum($limits) > 32){
+            throw new WGException("截取范围超出限值");
+        }
         $now = microtime();
-        $charid = strtoupper(md5(uniqid(mt_rand(), true) . $now));
-        $hyphen = chr(45);// "-"
-        $uuid = substr($charid, 0, 8) . $hyphen . substr($charid, 8, 4) . $hyphen . substr($charid, 12, 4) . $hyphen . substr($charid, 16, 4) . $hyphen . substr($charid, 20, 12);
-        return $uuid;
+        $charId = strtoupper(md5(uniqid(mt_rand(), true) . $now));
+        if (empty($hyphen)) {
+            return $charId;
+        }
+        $subData = [];
+        $limits = array_values($limits);
+        foreach ($limits as $key => $limit) {
+            if ($key == 0) {
+                $start = 0;
+            } else {
+                $start = $limits[$key - 1] + (empty($limits[$key - 2]) ? 0 : $limits[$key - 2]);
+            }
+            $subData[] = substr($charId, $start, $limit);
+        }
+        return implode($hyphen, $subData);
     }
 
     /**
