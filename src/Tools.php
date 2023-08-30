@@ -89,7 +89,7 @@ class Tools
      */
     public static function CreateGuid($hyphen = "-", $limits = [8, 4, 4, 4, 12])
     {
-        if(array_sum($limits) > 32){
+        if (array_sum($limits) > 32) {
             throw new WGException("截取范围超出限值");
         }
         $now = microtime();
@@ -134,18 +134,22 @@ class Tools
      */
     public static function GenerateNumber($length = 8)
     {
-        $date = trim(date('Ymdhis ', time()));
-        $connt = 0;
+        $count = 0;
         $temp = array();
-        while ($connt < $length) {
+        while ($count < $length) {
             $temp[] = mt_rand(0, 9);
-            $data = array_flip(array_flip($temp));
-            $connt = count($data);
+            // 如果长度小于10就去重
+            if ($count < 10) {
+                $data = array_flip(array_flip($temp));
+            } else {
+                $data[] = end($temp);
+            }
+            $count = count($data);
         }
+        // 重新排列数组
         shuffle($data);
         $str = implode(",", $data);
-        $number = str_replace(',', '', $str);
-        return $date . $number;
+        return str_replace(',', '', $str);
     }
 
     /**
