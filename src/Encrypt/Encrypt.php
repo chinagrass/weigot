@@ -71,27 +71,29 @@ class Encrypt
 
     /**
      * 加密
-     * @param string $str 要加密的数据
-     * @return bool|string   加密后的数据
+     * @param String $str 要加密的数据
+     * @param string $key
+     * @return false|string 加密后的数据
      */
-    public function aesEncrypt($str)
+    public function aesEncrypt($str, $key = "")
     {
-        $data = openssl_encrypt($str, 'AES-256-ECB', $this->key);
-        return $data;
+        empty($key) && $key = $this->key;
+        return openssl_encrypt($str, 'AES-256-ECB', $this->key);
     }
 
     /**
      * 解密
      * @param $str
-     * @return string
+     * @return false|string
      */
     public function aesDecrypt($str)
     {
-        $data = openssl_decrypt($str, 'AES-256-ECB', $this->key);
-        return $data;
+        empty($key) && $key = $this->key;
+        return openssl_decrypt($str, 'AES-256-ECB', $this->key);
     }
 
     /**
+     * 获取签名
      * @param SignRequest $signRequest
      * @return string
      * @throws \Weigot\Tools\Exception\WGException
